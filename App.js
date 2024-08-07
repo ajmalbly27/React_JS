@@ -1,12 +1,29 @@
-const heading = React.createElement(
-  "h1",
-  { id: "heading", xyz: "abc" },
-  "Hello World from React!"
-);
+/*
+ *<div id="parent">
+ *  <div id="child">
+ *     <h1>I'm a h1 tag</h1>
+ *     <h2>I'm a h2 tag</h2>
+ *  </div>
+ *  <div id="child2">
+ *     <h1>I'm a h1 tag</h1>
+ *     <h2>I'm a h2 tag</h2>
+ *  </div>
+ *</div>
+ */
 
-console.log(heading); //print a javascript object
+// for creating siblings we can give array for third argument
+
+const parent = React.createElement("div", { id: "parent" }, [
+  React.createElement("div", { id: "child" }, [
+    React.createElement("h1", {}, "I'm a h1 tag"),
+    React.createElement("h2", {}, "I'm a h2 tag"),
+  ]),
+  React.createElement("div", { id: "child2" }, [
+    React.createElement("h1", {}, "I'm a h1 tag"),
+    React.createElement("h2", {}, "I'm a h2 tag"),
+  ]),
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-//here render method take this heading object, create a html tag and put it inside the dom
-root.render(heading);
+root.render(parent);
