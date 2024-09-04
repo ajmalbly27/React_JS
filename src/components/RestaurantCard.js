@@ -10,7 +10,7 @@ const RestaurantCard = (props) => {
     cuisines,
     costForTwo,
     deliveryTime,
-  } = resData.card.card.info;
+  } = resData?.card?.card?.info;
 
   return (
     <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>

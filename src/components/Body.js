@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   //Local State Variable - Super powerful variable
@@ -27,7 +28,7 @@ const Body = () => {
 
     const json = await data.json();
 
-    console.log(json);
+    // console.log(json);
 
     setListOfRestaurants(
       json?.data?.cards[0]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards
@@ -81,10 +82,12 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurant.map((restaurant) => (
-          <RestaurantCard
+          <Link
             key={restaurant.card.card.info.id}
-            resData={restaurant}
-          />
+            to={"/restaurants/" + restaurant.card.card.info.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>

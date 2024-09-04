@@ -40,12 +40,13 @@
     cursor: pointer;
     border: 1px solid black;
 }
-.search {
-    padding: 10px;
-}
 
 .res-logo {
     width: 100%;
+}
+
+.search {
+    padding: 10px;
 }
 
 .filter-btn {
