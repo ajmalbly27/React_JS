@@ -1,8 +1,9 @@
-import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   //Local State Variable - Super powerful variable
@@ -11,7 +12,9 @@ const Body = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  console.log("Body rendered");
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
+  // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
 
   useEffect(() => {
     fetchData();
@@ -47,6 +50,8 @@ const Body = () => {
         Looks like you're offline!! Please Check Your internet connection.
       </h1>
     );
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -92,6 +97,14 @@ const Body = () => {
             Top Rated Restaurant
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label>UserName : </label>
+          <input
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
@@ -99,7 +112,11 @@ const Body = () => {
             key={restaurant.card.card.info.id}
             to={"/restaurants/" + restaurant.card.card.info.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant.card.card.info.promoted ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
