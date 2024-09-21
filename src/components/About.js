@@ -21,9 +21,6 @@ class About extends React.Component {
         <h1>About Class Component</h1>
         <div>
           LoggedIn User
-          {/* <UserContext.Consumer>
-            {(data) => console.log(data)}
-          </UserContext.Consumer> */}
           <UserContext.Consumer>
             {({ loggedInUser }) => (
               <h1 className="text-xl font-bold">{loggedInUser}</h1>
